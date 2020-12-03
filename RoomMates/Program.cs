@@ -69,6 +69,15 @@ namespace RoomMates
                         Console.WriteLine("Press any key to continue");
                         Console.ReadLine();
                         break;
+                    case ("Search for chore"):
+                        Console.Write("Chore Id: ");
+                        int choreId = int.Parse(Console.ReadLine());
+
+                        Chore chore = choreRepo.GetById(choreId);
+                        Console.WriteLine($"{chore.Id} - {chore.Name}");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                        break;
                     case ("Exit"):
                         runProgram = false;
                         break;
@@ -87,6 +96,7 @@ namespace RoomMates
             "Search for room",
             "Add a room",
             "Show all chores",
+            "Search for chore",
             "Exit"
         };
 

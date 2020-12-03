@@ -46,6 +46,31 @@ namespace Roommates.Repositories
                 }
             }
         }
-    
+        public Chore GetById(int id) 
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT Name FROM Chore WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    // Here is a null chore because it's how Adam did it.
+                    Chore chore = null;
+
+                    if (reader.Read())
+                    {
+                        chore = new Chore
+                        {
+                            Id = id,
+                            Name = reader.GetString(reader.GetOrdinal("Name"))
+                        };
+                    }
+                    reader.Close();
+                    return chore;
+                }
+            }
+        }
     }
 }
